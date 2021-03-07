@@ -1,0 +1,827 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.12.2.final using JasperReports Library version 6.12.2-75c5e90a222ab406e416cbf590a5397028a52de3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Owners" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="b9e3de5a-cab9-4683-b488-1645a2f0b8ec">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="ZoaSintrofias_Adapter"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="Microchip" class="java.math.BigDecimal"/>
+	<queryString language="SQL">
+		<![CDATA[-- ΑΝΑΖΗΤΗΣΗ ΤΩΝ ΙΔΙΟΚΤΗΤΩΝ
+SELECT
+	an_own.ISLAST AS `owner Torinos`,
+	DATE_FORMAT(an_own.DATEOFMOVE, "%a, %e/%c/%Y") AS `owner HMNIA Apoktisis`,
+	owntype.DESCR AS `owner Type`,
+	own.SURNAME AS `owner Surname`,
+	own.FIRSTNAME AS `owner First Name`,
+	own.TAX_ID AS `owner AFM`,
+	DATE_FORMAT(own.BIRTH_DATE, "%a, %e/%c/%Y") AS `owner Birth Date`,
+	idtype.DESCR AS `owner ID TYPE`,
+	country.GR AS `owner Country GR`,
+	country.ISO AS `owner Country ISO`,
+	own.ID_NO AS `owner ID NO`,
+	own.TELEPHONE1 AS `owner Telephone1`,
+	own.TELEPHONE2 AS `owner Telephone2`,
+	own.CELLPHONE AS `owner Cellphone`,
+	own.TOWN AS `owner Town`,
+	own.ADDRESS AS `owner Address`,
+	own.POSTAL AS `owner Postal`,
+	own.EMAIL AS `owner email`,
+	DATE_FORMAT(own.INSDATE, "%a, %e/%c/%Y - %I:%i %p") AS `owner HMNIA Kataxorisis`,
+	perif.DESCR AS `owner PERIFERIA`,
+	pe.DESCR AS `owner PE`,
+	dimos.DESCR AS `owner Dimos`,
+	dim_en.DESCR AS `owner Dimotiki Enotita`,
+	-- ΚΤΗΝΙΑΤΡΟΣ ΚΑΤΑΧΩΡΗΣΗΣ
+	v.SURNAME AS `vet Last Name`,
+	v.FIRSTNAME AS `vet First Name`,
+	v.TAXID AS `vet AFM`,
+	v.TELEPHONE1 AS `vet Telephone1`,
+	v.TOWN AS `vet Town`,
+	v.ADDRESS as `vet Address`
+FROM zoaSintrofias.T001_T003_ANIMAL_OWNER AS an_own
+	LEFT JOIN zoaSintrofias.T001_ANIMAL AS animal		ON an_own.T001_ID = animal.ID
+	LEFT JOIN zoaSintrofias.T003_OWNER AS own				ON an_own.T003_ID = own.id
+	LEFT JOIN zoaSintrofias.T004_PERIFERIA AS perif	ON own.T004_ID = perif.ID
+	LEFT JOIN zoaSintrofias.T005_PERIF_ENOT AS pe		ON own.T005_ID = pe.ID
+	LEFT JOIN zoaSintrofias.T006_DIMOS AS dimos			ON own.T006_ID = dimos.ID
+	LEFT JOIN zoaSintrofias.T007_DIM_ENOT AS dim_en	ON own.T007_ID = dim_en.ID
+	LEFT JOIN zoaSintrofias.T012_ID_TYPE AS idtype	ON own.T012_ID = idtype.ID
+	LEFT JOIN zoaSintrofias.T015_OWNER_TYPE AS owntype ON own.T015_ID = owntype.ID
+	LEFT JOIN zoaSintrofias.T016_COUNTRY AS country ON own.T016_ID = country.ID
+	LEFT JOIN zoaSintrofias.T002_VETERINARIAN AS v	ON an_own.INSUSR = v.USERNAME
+WHERE animal.MICROCHIPCODE = $P{Microchip}
+ORDER BY an_own.ISLAST DESC, an_own.DATEOFMOVE DESC]]>
+	</queryString>
+	<field name="owner Torinos" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.label" value="owner Torinos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T001_T003_ANIMAL_OWNER"/>
+	</field>
+	<field name="owner HMNIA Apoktisis" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner HMNIA Apoktisis"/>
+	</field>
+	<field name="owner Type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T015_OWNER_TYPE"/>
+	</field>
+	<field name="owner Surname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Surname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T003_OWNER"/>
+	</field>
+	<field name="owner First Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner First Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T003_OWNER"/>
+	</field>
+	<field name="owner AFM" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner AFM"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T003_OWNER"/>
+	</field>
+	<field name="owner Birth Date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Birth Date"/>
+	</field>
+	<field name="owner ID TYPE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner ID TYPE"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T012_ID_TYPE"/>
+	</field>
+	<field name="owner Country GR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Country GR"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T016_COUNTRY"/>
+	</field>
+	<field name="owner Country ISO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Country ISO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T016_COUNTRY"/>
+	</field>
+	<field name="owner ID NO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner ID NO"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T003_OWNER"/>
+	</field>
+	<field name="owner Telephone1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Telephone1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T003_OWNER"/>
+	</field>
+	<field name="owner Telephone2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Telephone2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T003_OWNER"/>
+	</field>
+	<field name="owner Cellphone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Cellphone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T003_OWNER"/>
+	</field>
+	<field name="owner Town" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Town"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T003_OWNER"/>
+	</field>
+	<field name="owner Address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T003_OWNER"/>
+	</field>
+	<field name="owner Postal" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Postal"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T003_OWNER"/>
+	</field>
+	<field name="owner email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T003_OWNER"/>
+	</field>
+	<field name="owner HMNIA Kataxorisis" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner HMNIA Kataxorisis"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T003_OWNER"/>
+	</field>
+	<field name="owner PERIFERIA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner PERIFERIA"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T004_PERIFERIA"/>
+	</field>
+	<field name="owner PE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner PE"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T005_PERIF_ENOT"/>
+	</field>
+	<field name="owner Dimos" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Dimos"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T006_DIMOS"/>
+	</field>
+	<field name="owner Dimotiki Enotita" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="owner Dimotiki Enotita"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T007_DIM_ENOT"/>
+	</field>
+	<field name="vet Last Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="vet Last Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T002_VETERINARIAN"/>
+	</field>
+	<field name="vet First Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="vet First Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T002_VETERINARIAN"/>
+	</field>
+	<field name="vet AFM" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="vet AFM"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T002_VETERINARIAN"/>
+	</field>
+	<field name="vet Telephone1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="vet Telephone1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T002_VETERINARIAN"/>
+	</field>
+	<field name="vet Town" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="vet Town"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T002_VETERINARIAN"/>
+	</field>
+	<field name="vet Address" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="vet Address"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="T002_VETERINARIAN"/>
+	</field>
+	<pageHeader>
+		<band height="64">
+			<textField>
+				<reportElement x="0" y="30" width="555" height="20" uuid="739aab38-cf7b-468f-ab4f-063886cf932e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{Microchip}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="555" height="20" uuid="19792d29-2af7-4500-9748-0fa8f73b8edf"/>
+				<textElement textAlignment="Center">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[IF($F{owner Torinos} == true,"Τωρινός ιδιοκτήτης του ζώου με microchip code","Παλιός ιδιοκτήτης του ζώου με microchip code")]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="606">
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="20" width="200" height="20" uuid="a6114b69-3872-4d39-b76e-bb5f13e36458"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner HMNIA Apoktisis}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="40" width="200" height="20" uuid="2b033f68-7442-4fd0-ad64-1251034433e2"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner Type}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="60" width="200" height="20" uuid="cc39f201-b47a-4195-aa98-d3db96af7529"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner Surname}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="80" width="200" height="20" uuid="3b1477cd-6385-43b9-af38-140cb86b28bc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner First Name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="100" width="200" height="20" uuid="41b61b28-dc1a-4723-906d-9481039f9683"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner Birth Date}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="170" width="200" height="20" uuid="c5bb7535-6fec-4a6a-ba51-fb9022234931"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner AFM}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="20" width="130" height="20" uuid="29087444-327a-446f-9884-1374436c7a06"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Ημ/νία απόκτησης]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="60" width="130" height="20" uuid="bf9306ca-88f0-4bf3-864e-e43dab812dd9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Επώνυμο]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="170" width="130" height="20" uuid="81f7e2bf-30c8-4ec6-a541-d569c1b1b5e5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[ΑΦΜ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="100" width="130" height="20" uuid="6b78a8b1-c59c-4133-8e1d-9cdeabb8d4b5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Ημ/νία γέννησης]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="40" width="130" height="20" uuid="2588811b-915c-45e2-b086-7d5a8a864424"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Είδος ιδιοκτήτη]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="80" width="130" height="20" uuid="8f83f4ff-fb1c-405f-9c32-df582be8532a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Όνομα]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="190" width="130" height="20" uuid="ece4b412-b414-45fd-b819-75a5341ae513"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Είδος Πιστοποιητικού]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="210" width="130" height="20" uuid="d8ac0eb1-6772-484c-8bb1-87a3576bc7dd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Αριθμός Πιστοποιητικού]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="340" width="130" height="20" uuid="39d33b8d-48a1-4558-b845-5468375d81bc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Χώρα]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="260" width="130" height="20" uuid="8c113ad4-b169-4174-8d0a-0579ea4fbfcb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Τηλέφωνο 1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="280" width="130" height="20" uuid="c149edbc-53c5-48d7-9441-b79c803130dc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Τηλέφωνο 2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="300" width="130" height="20" uuid="5a5a6467-10ab-4e4c-a0c2-d9ffe28d4c49"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Τηλέφωνο 3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="440" width="130" height="20" uuid="0f3b36a2-a2c7-4858-8cdb-09dd003f691e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Πόλη]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="460" width="130" height="20" uuid="9c73c1ca-032c-4534-aef1-4225af5ad553"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Διεύθυνση]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="480" width="130" height="20" uuid="e9fb084a-018f-447d-a34a-0c7069377775"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Τ.Κ.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="320" width="130" height="20" uuid="ddfe22e6-2012-4fa2-a849-e792b0fd19aa"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Ηλεκτρ. διεύθυνση]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="120" width="130" height="20" uuid="dcb8300e-5c8a-4a1b-817d-1f9929dae229"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Ημ/νία καταχώρησης]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="360" width="130" height="20" uuid="0c324d92-9a91-4fff-a4ec-0cdd8f6086f7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Περιφέρεια]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="380" width="130" height="20" uuid="f627c950-dd7a-4f3c-9d97-383cd82bf53e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Π.Ε.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="400" width="130" height="20" uuid="5cbe6a67-5f5f-400d-81cb-0fb1053aa8cd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Δήμος]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="420" width="130" height="20" uuid="a0ca62c4-0e93-410d-8a6d-6d30270edd9c"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Δημοτική Ενότητα]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="190" width="200" height="20" uuid="130b671d-aff6-4529-93b6-1c15eb4c8efb"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner ID TYPE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="210" width="200" height="20" uuid="b9f28090-f2ab-4e8c-8da3-0d269b39a4fe"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner ID NO}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="340" width="200" height="20" uuid="be8e110e-26f3-4f68-9cdc-53816c56dbf9"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner Country GR} +" (" + $F{owner Country ISO} + ")"]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="260" width="200" height="20" uuid="88a769bb-07a1-4616-969d-b1cb065617bc"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner Telephone1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="280" width="200" height="20" uuid="70960300-6a5e-4394-a3e8-3a24e41de765"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner Telephone2}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="300" width="200" height="20" uuid="472e6a1d-0ec3-4d83-889a-345d56f660b5"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner Cellphone}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="440" width="200" height="20" uuid="815d8e2b-5f96-4a6c-b5c9-a5497624544f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner Town}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="460" width="200" height="20" uuid="040bca2b-2151-4452-b07d-79b54dd8c24d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner Address}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="480" width="200" height="20" uuid="282c955d-cdff-488c-ac3d-f3b454e4b44f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner Postal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="320" width="200" height="20" uuid="64b21ca6-2bf3-418e-ab5c-91c28b7b7a20"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner email}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="120" width="200" height="20" uuid="738ab1a0-5921-4bae-ba7f-b613949e21ba"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner HMNIA Kataxorisis}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="360" width="200" height="20" uuid="820d0c60-b8ca-4c98-b810-b0bc9a8935c0"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner PERIFERIA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="380" width="200" height="20" uuid="cdb1e9a8-7a2d-43f3-b7cb-149da0a3ff19"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner PE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="400" width="200" height="20" uuid="a5a59d10-8e9c-43ac-97b0-018e2bc06721"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner Dimos}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="420" width="200" height="20" uuid="a0eec48a-db86-4498-be91-1b0235d314c6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{owner Dimotiki Enotita}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="130" height="20" uuid="d5ebcfdd-b7af-409f-9090-8cb8a3f7cd81">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans"/>
+				</textElement>
+				<text><![CDATA[Τωρινός Ιδιοκτήτης]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="0" width="200" height="20" uuid="80a30463-ad90-4c40-9ca8-516f4a7ee34b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="DejaVu Sans" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[IF($F{owner Torinos}==true,"Ναι","Όχι")]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="150" width="551" height="1" uuid="77abf277-af19-43ab-894f-cb15235e8d31"/>
+			</line>
+			<line>
+				<reportElement x="0" y="240" width="551" height="1" uuid="cffdae15-1974-4275-afc6-27c98f3b3d9a"/>
+			</line>
+			<frame>
+				<reportElement x="0" y="520" width="555" height="71" uuid="dfda2375-7b8e-403f-bd3a-f8d797786320">
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineColor="#40E68B"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<staticText>
+					<reportElement x="0" y="0" width="240" height="20" uuid="25502f22-1c47-4d56-888c-7d297e4ba5ad"/>
+					<box topPadding="5" leftPadding="5">
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement>
+						<font fontName="DejaVu Sans" size="11" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Κτηνίατρος καταχώρησης]]></text>
+				</staticText>
+				<frame>
+					<reportElement x="0" y="21" width="555" height="50" uuid="fd2d638b-3e9f-41d0-88d5-d194de15b75e">
+						<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.grid.JSSGridBagLayout"/>
+					</reportElement>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<staticText>
+						<reportElement x="0" y="0" width="93" height="25" uuid="080b92f8-905c-44be-b329-056eeac7ec7f">
+							<property name="com.jaspersoft.layout.grid.x" value="0"/>
+							<property name="com.jaspersoft.layout.grid.y" value="0"/>
+							<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans"/>
+						</textElement>
+						<text><![CDATA[Επώνυμο]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="93" y="0" width="93" height="25" uuid="527af088-4bae-447c-83bb-24f8da3734ed">
+							<property name="com.jaspersoft.layout.grid.x" value="1"/>
+							<property name="com.jaspersoft.layout.grid.y" value="0"/>
+							<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans"/>
+						</textElement>
+						<text><![CDATA[Όνομα]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="186" y="0" width="93" height="25" uuid="6e98db79-dfa4-4101-88ab-79cc833d2a68">
+							<property name="com.jaspersoft.layout.grid.x" value="2"/>
+							<property name="com.jaspersoft.layout.grid.y" value="0"/>
+							<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans"/>
+						</textElement>
+						<text><![CDATA[ΑΦΜ]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="279" y="0" width="92" height="25" uuid="ddcd98c9-c88b-4c8c-842b-20d310d7ce0b">
+							<property name="com.jaspersoft.layout.grid.x" value="3"/>
+							<property name="com.jaspersoft.layout.grid.y" value="0"/>
+							<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans"/>
+						</textElement>
+						<text><![CDATA[Τηλέφωνο]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="371" y="0" width="92" height="25" uuid="f8b3b3ff-4c15-45c4-98b7-4dc78a368ee3">
+							<property name="com.jaspersoft.layout.grid.x" value="4"/>
+							<property name="com.jaspersoft.layout.grid.y" value="0"/>
+							<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans"/>
+						</textElement>
+						<text><![CDATA[Πόλη]]></text>
+					</staticText>
+					<staticText>
+						<reportElement x="463" y="0" width="92" height="25" uuid="32f15f17-838f-4329-ac0c-52e5e08895a8">
+							<property name="com.jaspersoft.layout.grid.x" value="5"/>
+							<property name="com.jaspersoft.layout.grid.y" value="0"/>
+							<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans"/>
+						</textElement>
+						<text><![CDATA[Διεύθυνση]]></text>
+					</staticText>
+					<textField isBlankWhenNull="true">
+						<reportElement x="0" y="25" width="93" height="25" uuid="95ace6b2-c46f-49ae-a678-8e7ab7cd6d40">
+							<property name="com.jaspersoft.layout.grid.x" value="0"/>
+							<property name="com.jaspersoft.layout.grid.y" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle" markup="styled">
+							<font fontName="DejaVu Sans"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{vet Last Name}]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="93" y="25" width="93" height="25" uuid="7763a18d-8c8a-407c-bf47-381c9420aeb2">
+							<property name="com.jaspersoft.layout.grid.x" value="1"/>
+							<property name="com.jaspersoft.layout.grid.y" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{vet First Name}]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="186" y="25" width="93" height="25" uuid="469904d0-e312-4152-a039-9e65f91bfef4">
+							<property name="com.jaspersoft.layout.grid.x" value="2"/>
+							<property name="com.jaspersoft.layout.grid.y" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{vet AFM}]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="279" y="25" width="92" height="25" uuid="3ac3c81d-4e4d-49b8-b1b5-242de38adfb1">
+							<property name="com.jaspersoft.layout.grid.x" value="3"/>
+							<property name="com.jaspersoft.layout.grid.y" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{vet Telephone1}]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="371" y="25" width="92" height="25" uuid="aeab6838-cc82-479a-aee1-1a4e88806b5e">
+							<property name="com.jaspersoft.layout.grid.x" value="4"/>
+							<property name="com.jaspersoft.layout.grid.y" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{vet Town}]]></textFieldExpression>
+					</textField>
+					<textField isBlankWhenNull="true">
+						<reportElement x="463" y="25" width="92" height="25" uuid="098d4903-eeff-4777-9509-5d1142dbe571">
+							<property name="com.jaspersoft.layout.grid.x" value="5"/>
+							<property name="com.jaspersoft.layout.grid.y" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.x" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.weight.y" value="1.0"/>
+							<property name="com.jaspersoft.layout.grid.rowspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.colspan" value="1"/>
+							<property name="com.jaspersoft.layout.grid.weight.fixed" value="false"/>
+						</reportElement>
+						<box>
+							<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+							<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font fontName="DejaVu Sans"/>
+						</textElement>
+						<textFieldExpression><![CDATA[$F{vet Address}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</frame>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="27">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="27" uuid="3a1f64fc-a879-402c-a65a-1e89ab5de7b8"/>
+				<staticText>
+					<reportElement x="0" y="0" width="230" height="16" uuid="26cdea9b-395f-45c0-8674-9a15f9bd7503">
+						<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					</reportElement>
+					<textElement>
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<text><![CDATA[Υπ. Αγροτικής Ανάπτυξης και Τροφίμων]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="455" y="0" width="100" height="16" uuid="3423e79a-1b94-4c06-9845-59eb43d13d53"/>
+					<textElement textAlignment="Right">
+						<font fontName="DejaVu Sans"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Σελίδα " + ($V{PAGE_NUMBER} + 1)]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</pageFooter>
+</jasperReport>
